@@ -1,3 +1,5 @@
+from typing import Dict, List, Optional
+from typing_extensions import Literal
 from pydantic import BaseModel
 
 
@@ -120,8 +122,9 @@ class Position(BaseModel):
 
 
 class Portfolio(BaseModel):
-    positions: dict[str, Position]  # ticker -> Position mapping
-    total_cash: float = 0.0
+    cash: float = 100000.0
+    positions: Dict[str, float] = {}  # ticker -> quantity mapping
+    history: List[Dict] = []
 
 
 class AnalystSignal(BaseModel):
@@ -132,18 +135,45 @@ class AnalystSignal(BaseModel):
 
 
 class TickerAnalysis(BaseModel):
-    ticker: str
-    analyst_signals: dict[str, AnalystSignal]  # agent_name -> signal mapping
+    signals: Dict[str, Dict] = {}  # analyst -> signal mapping
+    decision: Dict = {}
+    reasoning: str = ""
 
 
 class AgentStateData(BaseModel):
-    tickers: list[str]
+    tickers: List[str]
     portfolio: Portfolio
     start_date: str
     end_date: str
-    ticker_analyses: dict[str, TickerAnalysis]  # ticker -> analysis mapping
+    ticker_analyses: Dict[str, TickerAnalysis]  # ticker -> analysis mapping
 
 
 class AgentStateMetadata(BaseModel):
     show_reasoning: bool = False
     model_config = {"extra": "allow"}
+
+
+# New models for trading chart analysis
+class TradingChart(BaseModel):
+    ticker: str
+    timestamp: str
+    timeframe: str
+    indicators: List[str] = []
+    image_path: str  # Path to saved chart image
+
+
+class TradingChartResponse(BaseModel):
+    chart: TradingChart
+
+
+class EntrySignal(BaseModel):
+    ticker: str
+    signal: Literal["bullish", "bearish", "neutral"]
+    confidence: float
+    reasoning: str
+    pattern: Optional[str] = None
+    image_path: Optional[str] = None  # Changed from chart_url to image_path
+
+
+class EntrySignalResponse(BaseModel):
+    entry_signals: list[EntrySignal]
