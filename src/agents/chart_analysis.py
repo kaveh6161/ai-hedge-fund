@@ -1,9 +1,9 @@
+from typing import List, Optional
+from enum import Enum
 from langchain_core.messages import HumanMessage
 from graph.state import AgentState, show_agent_reasoning
 from utils.progress import progress
 import json
-from enum import Enum
-from typing import List, Optional
 import base64
 
 from tools.chart_api import get_trading_chart

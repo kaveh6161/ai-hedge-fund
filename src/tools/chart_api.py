@@ -48,7 +48,7 @@ def get_trading_chart(
     
     # Get configuration from environment variables or use defaults
     base_url = base_url or os.environ.get("CHART_IMG_BASE_URL", "https://api.chart-img.com/v2/tradingview/layout-chart")
-    layout_id = layout_id or os.environ.get("CHART_IMG_LAYOUT_ID", "TT6qAg8k")
+    layout_id = layout_id or os.environ.get("CHART_IMG_LAYOUT_ID", "None")
     height = height or int(os.environ.get("CHART_IMG_HEIGHT", "600"))
     width = width or int(os.environ.get("CHART_IMG_WIDTH", "800"))
 

@@ -8,7 +8,7 @@ from utils.progress import progress
 T = TypeVar('T', bound=BaseModel)
 
 def call_llm(
-    prompt: Any,
+    prompt: list,
     model_name: str,
     model_provider: str,
     pydantic_model: Type[T],
