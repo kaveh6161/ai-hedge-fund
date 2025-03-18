@@ -7,7 +7,7 @@ from typing import List, Optional
 import base64
 
 from tools.chart_api import get_trading_chart
-from data.models import EntrySignal, EntrySignalResponse
+from data.models import EntrySignal
 from utils.llm import call_llm
 
 
